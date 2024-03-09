@@ -1,3 +1,5 @@
+![Screenshot](https://github.com/tomatophp/tomato-products-module/blob/master/art/screenshot.png)
+
 # Tomato Products
 
 A Full Products Management With tons of functions and multi variations and prices, stock.
@@ -5,7 +7,7 @@ A Full Products Management With tons of functions and multi variations and price
 ## Installation
 
 ```bash
-composer require tomatophp/TomatoProducts
+composer require tomatophp/tomato-products-module
 ```
 
 ## Support
