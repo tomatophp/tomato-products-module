@@ -7,9 +7,9 @@ use ProtoneMedia\Splade\AbstractTable;
 use ProtoneMedia\Splade\Facades\Toast;
 use ProtoneMedia\Splade\SpladeTable;
 use Illuminate\Database\Eloquent\Builder;
-use TomatoPHP\TomatoInventory\Facades\TomatoInventory;
-use TomatoPHP\TomatoOrders\Facades\TomatoOrdering;
-use TomatoPHP\TomatoRoles\Services\TomatoRoles;
+use Modules\TomatoInventory\App\Facades\TomatoInventory;
+use Modules\TomatoOrders\App\Facades\TomatoOrdering;
+use Modules\TomatoRoles\App\Services\TomatoRoles;
 
 class ProductTable extends AbstractTable
 {
