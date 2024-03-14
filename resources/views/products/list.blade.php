@@ -111,7 +111,7 @@
                                             :label="__('Product Reviews')"
                                             icon="bx bx-star"
                                         />
-                                        @if(class_exists(\TomatoPHP\TomatoInventory\Facades\TomatoInventory::class))
+                                        @if(class_exists(\Modules\TomatoInventory\App\Facades\TomatoInventory::class))
                                             <li class="whitespace-nowrap py-2 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-900 px-4">
                                                 <a target="_blank" href="{{route('admin.inventories.print.products')}}?product_id={{$item->id}}"
                                                    class="relative flex justify-center gap-2 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 text-gray-600 dark:text-gray-200 hover:text-black text-gray-600 dark:text-gray-200 hover:text-primary-500">
@@ -122,7 +122,7 @@
                                                 </a>
                                             </li>
                                         @endif
-                                        @if(class_exists(\TomatoPHP\TomatoOrders\Facades\TomatoOrdering::class))
+                                        @if(class_exists(\Modules\TomatoOrders\App\Facades\TomatoOrdering::class))
                                             <li class="whitespace-nowrap py-2 flex items-center justify-between hover:bg-gray-100 dark:hover:bg-gray-900 px-4">
                                                 <a target="_blank" href="{{route('admin.products.print.orders')}}?product_id={{$item->id}}"
                                                    class="relative flex justify-center gap-2 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 text-gray-600 dark:text-gray-200 hover:text-black text-gray-600 dark:text-gray-200 hover:text-primary-500">

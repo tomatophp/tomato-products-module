@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use ProtoneMedia\Splade\Facades\Toast;
 use Modules\TomatoCategory\App\Models\Type;
-use TomatoPHP\TomatoTranslations\Services\HandelTranslationInput;
+use Modules\TomatoTranslations\App\Services\HandelTranslationInput;
 
 class ProductUnitsController extends Controller
 {
