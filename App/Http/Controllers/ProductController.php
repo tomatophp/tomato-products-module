@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
@@ -21,6 +20,7 @@ use Modules\TomatoCategory\App\Models\Type;
 
 class ProductController extends Controller
 {
+
     public string $model;
 
     public function __construct()
@@ -91,8 +91,6 @@ class ProductController extends Controller
             return $response;
         }
 
-        Artisan::call('sitemap:generate');
-
         return $response->redirect;
     }
 
@@ -107,7 +105,6 @@ class ProductController extends Controller
             view: 'tomato-products::products.show',
             hasMedia: true,
             collection: [
-                "file" => false,
                 "images" => true,
                 "featured_image" => false
             ],
@@ -156,7 +153,6 @@ class ProductController extends Controller
             redirect: 'admin.products.index',
             hasMedia: true,
             collection: [
-                "file" => false,
                 "images" => true,
                 "featured_image" => false
             ]
@@ -181,7 +177,6 @@ class ProductController extends Controller
         $response->record->meta('brand', $request->get('brand'));
         $response->record->meta('unit', $request->get('unit'));
         $response->record->meta('weight', $request->get('weight'));
-        $response->record->meta('codes', $request->get('codes'));
 
         if($request->has('has_unlimited_stock') && $request->get('has_unlimited_stock') == '1'){
             $response->record->meta('stock', 0);
@@ -193,8 +188,6 @@ class ProductController extends Controller
         if($response instanceof JsonResponse){
              return $response;
          }
-
-        Artisan::call('sitemap:generate');
 
          return $response->redirect;
     }
@@ -211,7 +204,6 @@ class ProductController extends Controller
             redirect: 'admin.products.index',
             hasMedia: true,
             collection: [
-                "file" => false,
                 "images" => true,
                 "featured_image" => false
             ]

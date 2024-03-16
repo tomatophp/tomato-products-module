@@ -1,130 +1,134 @@
 <?php
 
-namespace Modules\TomatoProducts\App\Providers;
+namespace Modules\TomatoProducts\App\Models;
 
-use Illuminate\Support\Facades\Blade;
-use Illuminate\Support\ServiceProvider;
-use Modules\TomatoProducts\App\Console\TomatoProductsInstall;
-use TomatoPHP\TomatoAdmin\Facade\TomatoMenu;
-use TomatoPHP\TomatoAdmin\Services\Contracts\Menu;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Translatable\HasTranslations;
+use Modules\TomatoCategory\App\Models\Category;
 
-class TomatoProductsServiceProvider extends ServiceProvider
+/**
+ * @property integer $id
+ * @property integer $category_id
+ * @property string $name
+ * @property string $keywords
+ * @property string $slug
+ * @property string $sku
+ * @property string $barcode
+ * @property string $type
+ * @property string $about
+ * @property string $description
+ * @property string $details
+ * @property float $price
+ * @property float $discount
+ * @property string $discount_to
+ * @property float $vat
+ * @property boolean $is_in_stock
+ * @property boolean $is_activated
+ * @property boolean $is_shipped
+ * @property boolean $is_trend
+ * @property boolean $has_options
+ * @property boolean $has_multi_price
+ * @property boolean $has_unlimited_stock
+ * @property boolean $has_max_cart
+ * @property integer $min_cart
+ * @property integer $max_cart
+ * @property boolean $has_stock_alert
+ * @property integer $min_stock_alert
+ * @property integer $max_stock_alert
+ * @property string $created_at
+ * @property string $updated_at
+ * @property Category[] $categories
+ * @property Product[] $collection
+ * @property Tags[] $tags
+ * @property ProductMeta[] $productMetas
+ * @property ProductReview[] $productReviews
+ * @property Category $category
+ */
+class Product extends Model implements HasMedia
 {
-    protected string $moduleName = 'TomatoProducts';
+    use InteractsWithMedia;
+    use HasTranslations;
 
-    protected string $moduleNameLower = 'tomato-products';
+    public $translatable = ['name', 'about', 'description', 'details', 'keywords'];
 
     /**
-     * Boot the application events.
+     * @var array
      */
-    public function boot(): void
+    protected $fillable = ['category_id', 'keywords','name', 'slug', 'sku', 'barcode', 'type', 'about', 'description', 'details', 'price', 'discount', 'discount_to', 'vat', 'is_in_stock', 'is_activated', 'is_shipped', 'is_trend', 'has_options', 'has_multi_price', 'has_unlimited_stock', 'has_max_cart', 'min_cart', 'max_cart', 'has_stock_alert', 'min_stock_alert', 'max_stock_alert', 'created_at', 'updated_at'];
+
+    protected $casts = [
+        'is_in_stock' => 'boolean',
+        'is_activated'=> 'boolean',
+        'is_shipped'=> 'boolean',
+        'is_trend'=> 'boolean',
+        'has_options'=> 'boolean',
+        'has_multi_price'=> 'boolean',
+        'has_unlimited_stock'=> 'boolean',
+        'has_max_cart'=> 'boolean',
+        'has_stock_alert' => 'boolean',
+    ];
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function categories()
     {
-        $this->registerCommands();
-        $this->registerCommandSchedules();
-        $this->registerTranslations();
-        $this->registerConfig();
-        $this->registerViews();
-        $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/migrations'));
-        $this->loadTranslationsFrom(__DIR__.'/../../resources/lang', 'tomato-products');
-
-        $this->commands([
-            TomatoProductsInstall::class
-        ]);
-
-        TomatoMenu::register([
-            Menu::make()
-                ->group(__('Products'))
-                ->route('admin.products.index')
-                ->label(__('Products'))
-                ->icon('bx bxs-cart-alt'),
-        ]);
+        return $this->belongsToMany(Category::class, 'product_has_categories',   'product_id', 'category_id');
     }
 
     /**
-     * Register the service provider.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    public function register(): void
+    public function collection()
     {
-        $this->app->register(RouteServiceProvider::class);
+        return $this->belongsToMany('Modules\TomatoProducts\App\Models\Product', 'product_has_collection', 'collection_id');
     }
 
     /**
-     * Register commands in the format of Command::class
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
-    protected function registerCommands(): void
+    public function tags()
     {
-        // $this->commands([]);
+        return $this->belongsToMany(Category::class, 'product_has_tags', null, 'tag_id');
     }
 
     /**
-     * Register command Schedules.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected function registerCommandSchedules(): void
+    public function productMetas()
     {
-        // $this->app->booted(function () {
-        //     $schedule = $this->app->make(Schedule::class);
-        //     $schedule->command('inspire')->hourly();
-        // });
+        return $this->hasMany(ProductMeta::class);
     }
 
     /**
-     * Register translations.
+     * @param string $key
+     * @param string|null $value
+     * @return mixed
      */
-    public function registerTranslations(): void
+    public function meta(string $key, mixed $value=null): mixed
     {
-        $langPath = resource_path('lang/modules/'.$this->moduleNameLower);
-
-        if (is_dir($langPath)) {
-            $this->loadTranslationsFrom($langPath, $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom($langPath);
-        } else {
-            $this->loadTranslationsFrom(module_path($this->moduleName, 'lang'), $this->moduleNameLower);
-            $this->loadJsonTranslationsFrom(module_path($this->moduleName, 'lang'));
+        if($value !== null){
+            return $this->productMetas()->updateOrCreate(['key' => $key], ['value' => $value]);
+        }
+        else {
+            return $this->productMetas()->where('key', $key)->first()?->value ?? null;
         }
     }
 
     /**
-     * Register config.
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    protected function registerConfig(): void
+    public function productReviews()
     {
-        $this->publishes([module_path($this->moduleName, 'config/config.php') => config_path($this->moduleNameLower.'.php')], 'config');
-        $this->mergeConfigFrom(module_path($this->moduleName, 'config/config.php'), $this->moduleNameLower);
+        return $this->hasMany('Modules\TomatoProducts\App\Models\ProductReview');
     }
 
     /**
-     * Register views.
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function registerViews(): void
+    public function category()
     {
-        $viewPath = resource_path('views/modules/'.$this->moduleNameLower);
-        $sourcePath = module_path($this->moduleName, 'resources/views');
-
-        $this->publishes([$sourcePath => $viewPath], ['views', $this->moduleNameLower.'-module-views']);
-
-        $this->loadViewsFrom(array_merge($this->getPublishableViewPaths(), [$sourcePath]), $this->moduleNameLower);
-
-        $componentNamespace = str_replace('/', '\\', config('modules.namespace').'\\'.$this->moduleName.'\\'.config('modules.paths.generator.component-class.path'));
-        Blade::componentNamespace($componentNamespace, $this->moduleNameLower);
-    }
-
-    /**
-     * Get the services provided by the provider.
-     */
-    public function provides(): array
-    {
-        return [];
-    }
-
-    private function getPublishableViewPaths(): array
-    {
-        $paths = [];
-        foreach (config('view.paths') as $path) {
-            if (is_dir($path.'/modules/'.$this->moduleNameLower)) {
-                $paths[] = $path.'/modules/'.$this->moduleNameLower;
-            }
-        }
-
-        return $paths;
+        return $this->belongsTo(Category::class);
     }
 }

@@ -25,7 +25,11 @@
                                 </x-splade-link>
 
                                 <div @click.prevent="table.updateQuery('filter[category_id]', @js($category->id))" class="flex flex-col items-center justify-center cursor-pointer">
-                                    @if($category->icon)
+                                    @if($category->getMedia('image')->first())
+                                        <div class="bg-cover w-16 h-16 bg-center rounded-full border-gray-200 dark:border-gray-700" style="background-image: url('{{$category->getMedia('image')->first()?->getUrl()}}')">
+
+                                        </div>
+                                    @elseif($category->icon)
                                         <div class="w-16 h-16 flex flex-col items-center justify-center">
                                             <i class="{{$category->icon}} bx-lg" style="color: {{$category->color}}"></i>
                                         </div>

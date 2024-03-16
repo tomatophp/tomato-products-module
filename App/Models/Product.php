@@ -56,17 +56,17 @@ class Product extends Model implements HasMedia
     /**
      * @var array
      */
-    protected $fillable = ['category_id', 'keywords', 'name', 'slug', 'sku', 'barcode', 'type', 'about', 'description', 'details', 'price', 'discount', 'discount_to', 'vat', 'is_in_stock', 'is_activated', 'is_shipped', 'is_trend', 'has_options', 'has_multi_price', 'has_unlimited_stock', 'has_max_cart', 'min_cart', 'max_cart', 'has_stock_alert', 'min_stock_alert', 'max_stock_alert', 'created_at', 'updated_at'];
+    protected $fillable = ['category_id', 'keywords','name', 'slug', 'sku', 'barcode', 'type', 'about', 'description', 'details', 'price', 'discount', 'discount_to', 'vat', 'is_in_stock', 'is_activated', 'is_shipped', 'is_trend', 'has_options', 'has_multi_price', 'has_unlimited_stock', 'has_max_cart', 'min_cart', 'max_cart', 'has_stock_alert', 'min_stock_alert', 'max_stock_alert', 'created_at', 'updated_at'];
 
     protected $casts = [
         'is_in_stock' => 'boolean',
-        'is_activated' => 'boolean',
-        'is_shipped' => 'boolean',
-        'is_trend' => 'boolean',
-        'has_options' => 'boolean',
-        'has_multi_price' => 'boolean',
-        'has_unlimited_stock' => 'boolean',
-        'has_max_cart' => 'boolean',
+        'is_activated'=> 'boolean',
+        'is_shipped'=> 'boolean',
+        'is_trend'=> 'boolean',
+        'has_options'=> 'boolean',
+        'has_multi_price'=> 'boolean',
+        'has_unlimited_stock'=> 'boolean',
+        'has_max_cart'=> 'boolean',
         'has_stock_alert' => 'boolean',
     ];
     /**
@@ -106,11 +106,12 @@ class Product extends Model implements HasMedia
      * @param string|null $value
      * @return mixed
      */
-    public function meta(string $key, mixed $value = null): mixed
+    public function meta(string $key, mixed $value=null): mixed
     {
-        if ($value !== null) {
+        if($value !== null){
             return $this->productMetas()->updateOrCreate(['key' => $key], ['value' => $value]);
-        } else {
+        }
+        else {
             return $this->productMetas()->where('key', $key)->first()?->value ?? null;
         }
     }
@@ -121,14 +122,6 @@ class Product extends Model implements HasMedia
     public function productReviews()
     {
         return $this->hasMany('Modules\TomatoProducts\App\Models\ProductReview');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function productReviewsActive()
-    {
-        return $this->hasMany(ProductReview::class)->where('is_activated', true);
     }
 
     /**

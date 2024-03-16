@@ -8,9 +8,9 @@
         </x-tomato-admin-button>
     </x-slot:buttons>
     <div class="flex flex-col gap-4">
-        @php $options = \TomatoPHP\TomatoCategory\Models\Category::where('for', 'product-categories')->get(); @endphp
+        @php $options = \Modules\TomatoCategory\App\Models\Category::where('for', 'product-categories')->get(); @endphp
         @if(count($options))
-            <x-splade-table :for="(new \TomatoPHP\TomatoCategory\Tables\CategoryTable(\TomatoPHP\TomatoCategory\Models\Category::where('for', 'product-categories')))">
+            <x-splade-table :for="(new \Modules\TomatoCategory\App\Tables\CategoryTable(\Modules\TomatoCategory\App\Models\Category::where('for', 'product-categories')))">
                 <x-splade-cell color>
                     <x-tomato-admin-row table type="color" :value="$item->color" />
                 </x-splade-cell>

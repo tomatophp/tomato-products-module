@@ -92,7 +92,7 @@
                     </table>
                 </td>
                 <td>
-                    {!! currency($item->total) !!}
+                    {!! dollar($item->total) !!}
                 </td>
             </tr>
         @endforeach
@@ -109,7 +109,7 @@
                 {{__('Orders Total')}}
             </td>
             <td colspan="5">
-                {!! currency($orders->sum('total')) !!}
+                {!! dollar($orders->sum('total')) !!}
             </td>
         </tr>
         </tbody>

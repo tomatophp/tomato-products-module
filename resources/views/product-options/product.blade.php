@@ -12,7 +12,7 @@
                     <x-splade-select :label="$type->name"
                                      :placeholder="$type->name"
                                      name="options.{{$type->key}}"
-                                     :options="\TomatoPHP\TomatoCategory\Models\Type::where('for', 'product-options')->where('type', $type->key)->get()"
+                                     :options="\Modules\TomatoCategory\App\Models\Type::where('for', 'product-options')->where('type', $type->key)->get()"
                                      option-label="name"
                                      option-value="key"
                                      @change="data.items['{{$type->key}}'] = $event.detail.value"

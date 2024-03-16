@@ -36,7 +36,7 @@
             <x-splade-select :label="__('Categories')"
                              :placeholder="__('Categories')"
                              name="categories"
-                             :options="\TomatoPHP\TomatoCategory\Models\Category::where('for', 'product-categories')->get()"
+                             :options="\Modules\TomatoCategory\App\Models\Category::where('for', 'product-categories')->get()"
                              option-label="name"
                              option-value="id"
                              multiple
@@ -44,7 +44,7 @@
             <x-splade-select :label="__('Tags')"
                              :placeholder="__('Tags')"
                              name="tags"
-                             :options="\TomatoPHP\TomatoCategory\Models\Category::where('for', 'product-tags')->get()"
+                             :options="\Modules\TomatoCategory\App\Models\Category::where('for', 'product-tags')->get()"
                              option-label="name"
                              option-value="id"
                              multiple

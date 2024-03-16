@@ -8,7 +8,7 @@
         </x-tomato-admin-button>
     </x-slot:buttons>
     <div class="flex flex-col gap-4">
-        @php $options = \TomatoPHP\TomatoCategory\Models\Type::where('for', 'product-options')->where('type', 'type')->get(); @endphp
+        @php $options = \Modules\TomatoCategory\App\Models\Type::where('for', 'product-options')->where('type', 'type')->get(); @endphp
         @if(count($options))
         @foreach($options as $type)
             <div class="text-lg font-bold flex justify-between gap-4">
@@ -24,7 +24,7 @@
                     </x-tomato-admin-button>
                 </div>
             </div>
-            <x-splade-table :for="(new \TomatoPHP\TomatoCategory\Tables\TypeTable(\TomatoPHP\TomatoCategory\Models\Type::query()->where('for', 'product-options')->where('type', $type->key), false))">
+            <x-splade-table :for="(new \Modules\TomatoCategory\App\Tables\TypeTable(\Modules\TomatoCategory\App\Models\Type::query()->where('for', 'product-options')->where('type', $type->key), false))">
                 <x-splade-cell color>
                     <x-tomato-admin-row table type="color" :value="$item->color" />
                 </x-splade-cell>
