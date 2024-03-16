@@ -59,7 +59,7 @@
                             <th>#</th>
                             <th>{{__('SKU')}}</th>
                             <th>{{__('Options')}}</th>
-                            <th>{{__('QNT')}}</th>
+                            <th>{{__('QTY')}}</th>
                         </tr>
                         </thead>
                         <tbody>

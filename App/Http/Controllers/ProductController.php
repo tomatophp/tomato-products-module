@@ -83,7 +83,7 @@ class ProductController extends Controller
         $response = Tomato::store(
             request: $request,
             model: \Modules\TomatoProducts\App\Models\Product::class,
-            message: __('Product updated successfully'),
+            message: __('Product created successfully'),
             redirect: 'admin.products.index'
         );
 

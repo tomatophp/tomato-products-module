@@ -1,4 +1,4 @@
-<x-tomato-admin-container label="{{trans('tomato-admin::global.crud.edit')}} {{__('ProductReview')}} #{{$model->id}}">
+<x-tomato-admin-container label="{{trans('tomato-admin::global.crud.edit')}} {{__('Product Review')}} #{{$model->id}}">
     <x-splade-form class="flex flex-col space-y-4" action="{{route('admin.product-reviews.update', $model->id)}}" method="post" :default="$model">
         <x-splade-checkbox :label="__('Is activated')" name="is_activated"  />
 

@@ -1,4 +1,4 @@
-<x-tomato-admin-container label="{{trans('tomato-admin::global.crud.view')}} {{__('products')}} #{{$model->id}}">
+<x-tomato-admin-container label="{{trans('tomato-admin::global.crud.view')}} {{__('Products')}} #{{$model->id}}">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
         <x-tomato-admin-row :label="__('Name')" :value="$model->name" type="text" />
           <x-tomato-admin-row :label="__('Slug')" :value="$model->slug" type="text" />
