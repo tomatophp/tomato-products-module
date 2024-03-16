@@ -1,8 +1,8 @@
 <x-tomato-admin-container label="{{trans('tomato-admin::global.crud.view')}} {{__('product-reviews')}} #{{$model->id}}">
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-        <x-tomato-admin-row :label="__('Product id')" :value="$model->product_id" type="text" />
+        <x-tomato-admin-row :label="__('Product')" :value="$model->product_id" type="text" />
 
-          <x-tomato-admin-row :label="__('Account id')" :value="$model->account_id" type="number" />
+          <x-tomato-admin-row :label="__('Account')" :value="$model->account_id" type="number" />
 
           <x-tomato-admin-row :label="__('Rate')" :value="$model->rate" type="number" />
 

@@ -59,7 +59,7 @@
                             <th>#</th>
                             <th>{{__('SKU')}}</th>
                             <th>{{__('Options')}}</th>
-                            <th>{{__('QNT')}}</th>
+                            <th>{{__('QTY')}}</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -92,7 +92,7 @@
                     </table>
                 </td>
                 <td>
-                    {!! dollar($item->total) !!}
+                    {!! currency($item->total) !!}
                 </td>
             </tr>
         @endforeach
@@ -109,7 +109,7 @@
                 {{__('Orders Total')}}
             </td>
             <td colspan="5">
-                {!! dollar($orders->sum('total')) !!}
+                {!! currency($orders->sum('total')) !!}
             </td>
         </tr>
         </tbody>

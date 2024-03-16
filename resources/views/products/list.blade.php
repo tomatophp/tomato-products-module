@@ -65,6 +65,16 @@
                                             :label="__('Edit Product')"
                                             icon="bx bx-edit"
                                         />
+                                        @if($item->type === 'digital')
+                                            <x-tomato-admin-dropdown-item
+                                                black
+                                                modal
+                                                type="link"
+                                                :href="route('admin.products.actions.digital', $item->id)"
+                                                :label="__('Digital Product')"
+                                                icon="bx bx-message-square-edit"
+                                            />
+                                        @endif
                                         <x-tomato-admin-dropdown-item
                                             :label="__('Copy Product Link')"
                                             type="copy"
@@ -242,7 +252,7 @@
                             <x-splade-select
                                 :disabled="!auth('web')->user()->can('admin.products.update')"
                                 name="category_id"
-                                :options="\Modules\TomatoCategory\App\Models\Category::where('for', 'product-categories')->get()"
+                                :options="\TomatoPHP\TomatoCategory\Models\Category::where('for', 'product-categories')->get()"
                                 option-label="name"
                                 option-value="id"
                                 choices
