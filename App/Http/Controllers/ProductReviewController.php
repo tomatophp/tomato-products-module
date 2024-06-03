@@ -65,7 +65,7 @@ class ProductReviewController extends Controller
         $response = Tomato::store(
             request: $request,
             model: \Modules\TomatoProducts\App\Models\ProductReview::class,
-            message: __('ProductReview updated successfully'),
+            message: __('Product Review created successfully'),
             redirect: 'admin.product-reviews.index',
         );
 
@@ -111,7 +111,7 @@ class ProductReviewController extends Controller
         $response = Tomato::update(
             request: $request,
             model: $model,
-            message: __('ProductReview updated successfully'),
+            message: __('Product Review updated successfully'),
             redirect: 'admin.product-reviews.index',
         );
 
@@ -130,7 +130,7 @@ class ProductReviewController extends Controller
     {
         $response = Tomato::destroy(
             model: $model,
-            message: __('ProductReview deleted successfully'),
+            message: __('Product Review deleted successfully'),
             redirect: 'admin.product-reviews.index',
         );
 

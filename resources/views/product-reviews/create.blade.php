@@ -1,7 +1,7 @@
-<x-tomato-admin-container label="{{trans('tomato-admin::global.crud.create')}} {{__('ProductReview')}}">
+<x-tomato-admin-container label="{{trans('tomato-admin::global.crud.create')}} {{__('Product Review')}}">
     <x-splade-form class="flex flex-col space-y-4" action="{{route('admin.product-reviews.store')}}" method="post">
-        <x-splade-select :label="__('Product id')" :placeholder="__('Product id')" name="product_id" remote-url="/admin/products/api" remote-root="data" option-label="name" option-value="id" choices/>
-          <x-splade-input :label="__('Account id')" name="account_id" type="number"  :placeholder="__('Account id')" />
+        <x-splade-select :label="__('Product')" :placeholder="__('Product')" name="product_id" remote-url="/admin/products/api" remote-root="data" option-label="name" option-value="id" choices/>
+          <x-splade-input :label="__('Account')" name="account_id" type="number"  :placeholder="__('Account')" />
           <x-splade-input :label="__('Rate')" name="rate" type="number"  :placeholder="__('Rate')" />
           <x-splade-textarea :label="__('Review')" name="review" :placeholder="__('Review')" autosize />
           <x-splade-checkbox :label="__('Is activated')" name="is_activated"  />
